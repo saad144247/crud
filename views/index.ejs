@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <style>
+    body { 
+        font-family: Arial, sans-serif; 
+        background-color: #f7f9fc; 
+        padding: 10px; 
+    }
+
+    .container { 
+        background: white; 
+        padding: 15px; 
+        width: 90%; 
+        max-width: 400px; 
+        margin: 20px auto; 
+        border: 2px solid #555; 
+        border-radius: 5px; 
+    }
+
+    h1 { 
+        color: #444; 
+        font-size: 24px; 
+        margin-bottom: 15px; 
+    }
+
+    form { 
+        display: flex; 
+        margin-bottom: 15px; 
+    }
+
+    input[type="text"] { 
+        flex: 1; 
+        padding: 8px; 
+        border: 1px solid #777; 
+        margin-right: 5px; 
+    }
+
+    .add-btn { 
+        background-color: green; 
+        color: white; 
+        padding: 8px; 
+        border: none; 
+        font-weight: bold; 
+        cursor: pointer; 
+    }
+
+    ul { list-style: none; padding: 0; }
+
+    li { 
+        padding: 10px; 
+        border-bottom: 1px solid #ddd; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+    }
+
+    .task-text { color: #555; }
+    .actions { display: flex; gap: 10px; }
+
+    .edit-link { 
+        color: #007bff; 
+        text-decoration: none; 
+        font-size: 14px; 
+    }
+
+    .delete-btn { 
+        background: #e74c3c; 
+        color: white; 
+        border: none; 
+        padding: 5px; 
+        font-size: 12px; 
+        cursor: pointer; 
+    }
+</style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>task manager</h1>
+        
+        <form action="/tasks" method="POST">
+            <input type="text" name="title" placeholder="Enter new task..." required>
+            <button type="submit" class="add-btn">add task</button>
+        </form>
+
+        <ul>
+            <% tasks.forEach(task => { %>
+                <li>
+                    <span class="task-text"><%= task.title %></span>
+                    <div class="actions">
+                        <a href="/edit/<%= task.id %>" class="edit-link">Edit</a>
+                        <form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" style="margin:0;">
+                            <button class="delete-btn">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+
+</body>
+</html>
